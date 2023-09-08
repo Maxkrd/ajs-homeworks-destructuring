@@ -1,15 +1,14 @@
-export default function orderByProps(object, props) {
+export default function destructuring(obj) {
   const result = [];
-  for (const prop in object) {
-    if (props.includes(prop)) {
-      result.push({ key: prop, value: object[prop] });
+  let item;
+  for (const element of obj.special) {
+    if (!Object.prototype.hasOwnProperty.call(element, 'description')) {
+      item = element;
+      item.description = 'Описание не доступно';
+    } else {
+      item = element;
     }
-  }
-  const sortedProps = Object.keys(object).sort();
-  for (const prop of sortedProps) {
-    if (!props.includes(prop)) {
-      result.push({ key: prop, value: object[prop] });
-    }
+    result.push(item);
   }
   return result;
 }
